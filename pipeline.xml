@@ -11,7 +11,11 @@
 		<param name="output" shortName="o" global="true" defaultValue="output"></param>
 		<param name="paramsDir" shortName="pd" global="true" defaultValue="params"></param>
 
+		<!-- Custom batch sizes for tasks. If not specified, all files are processed at the same time (i.e. only
+			one SEDA command is executed). -->
 		<param name="batchSize_filtering_2" shortName="bsf2" defaultValue="2"></param>
+		<!-- If a task/command name contains "-", this character must be replaced with "_" when creating a "batchSize_" parameter -->
+		<param name="batchSize_reverse_complement" shortName="bsrc" defaultValue="1"></param>
 
 		<!-- Paths to scripts required by the pipeline runner XML -->
 		<param name="script_pipeline_runner" shortName="spr" global="true" defaultValue="pipeline-runner.sh"></param>
@@ -25,5 +29,6 @@
 		<task id="reformat" after="filtering_1 filtering_2"/>
 		<task id="merge" after="reformat"/>
 		<task id="disambiguate" after="merge"/>
+		<task id="reverse-complement" after="disambiguate" params="batchSize_reverse_complement"/>
 	</tasks>
 </pipeline>

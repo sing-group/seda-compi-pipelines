@@ -23,7 +23,8 @@ fi
 # Divide the current lit of input files in batches if batchSize is set for the current task.
 #
 INPUT_BATCHES_DIR=$(mktemp -d /tmp/seda.${task_id}.batches.XXXXX)
-TASK_BATCH_SIZE=$(env | grep -i "^batchSize_${task_id}" | sed 's/^batchSize.*=//')
+task_id_for_batch_size=$(echo ${task_id} | sed 's#-#_#g')
+TASK_BATCH_SIZE=$(env | grep -i "^batchSize_${task_id_for_batch_size}" | sed 's/^batchSize.*=//')
 
 if [ -z "${TASK_BATCH_SIZE}" ]; then
 	message "Batch size not specified, processing all files at once."
