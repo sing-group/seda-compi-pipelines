@@ -10,7 +10,7 @@ SEDA_OPERATION_NAME=$(echo ${task_id} | sed 's/_[0-9]*$//')
 # Set the input files for the current task.
 #
 INPUT_LIST=$(mktemp /tmp/seda.${task_id}.XXXXX)
-TASK_AFTER=$(env | grep -i "^task_after" | sed 's/^task_after*=//')
+TASK_AFTER=$(env | grep "^task_after" | sed 's/^task_after*=//')
 if [ -z "${TASK_AFTER}" ]; then
 	ls ${workingDirectory}/${input}/${task_id}/* > ${INPUT_LIST}
 else
