@@ -30,5 +30,6 @@
 		<task id="merge" after="reformat"/>
 		<task id="disambiguate" after="merge"/>
 		<task id="reverse-complement" after="disambiguate" params="batchSize_reverse_complement"/>
+		<task id="final-task" after="reverse-complement" src="task-scripts/final-task.sh"></task>
 	</tasks>
 </pipeline>
