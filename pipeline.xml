@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pipeline xmlns="http://www.sing-group.org/compi/pipeline-1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<version>0.1.0</version>
+
+	<params>
+		<param name="workingDirectory" shortName="wd" global="true"></param>
+
+		<param name="input" shortName="i" global="true" defaultValue="input"></param>
+		<param name="output" shortName="o" global="true" defaultValue="output"></param>
+		<param name="paramsDir" shortName="pd" global="true" defaultValue="params"></param>
+
+		<param name="batchSize_filtering_2" shortName="bsf2" defaultValue="2"></param>
+
+		<!-- Paths to scripts required by the pipeline runner XML -->
+		<param name="script_pipeline_runner" shortName="spr" global="true" defaultValue="pipeline-runner.sh"></param>
+		<param name="sedaCli" shortName="sc" global="true" defaultValue="run-cli.sh"></param>
+		<param name="script_create_batches" shortName="scb" global="true" defaultValue="create_batches"></param>
+	</params>
+
+	<tasks>
+		<task id="filtering_1"/>
+		<task id="filtering_2" params="batchSize_filtering_2"/>
+		<task id="reformat" after="filtering_1 filtering_2"/>
+		<task id="merge" after="reformat"/>
+		<task id="disambiguate" after="merge"/>
+	</tasks>
+</pipeline>

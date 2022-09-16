@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<runners xmlns="http://sing-group.org/compi/runners-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<runner>
+		${script_pipeline_runner}
+	</runner>
+</runners>
