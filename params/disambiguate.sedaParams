@@ -1,0 +1,5 @@
+{
+   "disambiguateSequenceNamesTransformationProvider" : {
+      "mode" : "RENAME"
+   }
+}

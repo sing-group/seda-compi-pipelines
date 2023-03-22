@@ -30,6 +30,9 @@
 		<task id="merge" after="reformat"/>
 		<task id="disambiguate" after="merge"/>
 		<task id="reverse-complement" after="disambiguate" params="batchSize_reverse_complement"/>
+        
+		<!-- final-task is not a SEDA command and thus uses "src" to specify the path to the bash script that must
+        be executed. -->	
 		<task id="final-task" after="reverse-complement" src="task-scripts/final-task.sh"></task>
 	</tasks>
 </pipeline>
