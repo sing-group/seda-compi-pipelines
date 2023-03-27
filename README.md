@@ -35,8 +35,10 @@ Note that the list of SEDA commands can be obtained with `docker run --rm pegi3s
 
 ## Defining pipeline tasks: inputs and outputs
 
-<img src="./docs/compi_seda.png" alt="seda-cheatsheet" style="zoom:50%;" />
-
+<p align="center">
+	<img src="./docs/compi_seda.png" alt="seda-cheatsheet" title="seda-compi-pipelines cheat sheet" width="40%;" />
+	</br>
+</p>
 
 
 The minimal pipeline task looks like the following:
