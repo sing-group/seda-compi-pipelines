@@ -20,7 +20,7 @@ else
 fi
 
 #
-# Divide the current lit of input files in batches if batchSize is set for the current task.
+# Divide the current list of input files in batches if batchSize is set for the current task.
 #
 INPUT_BATCHES_DIR=$(mktemp -d /tmp/seda.${task_id}.batches.XXXXX)
 task_id_for_batch_size=$(echo ${task_id} | sed 's#-#_#g')
