@@ -38,13 +38,13 @@ fi
 # Set the curent task parameters.
 #
 if [ -f "${workingDirectory}/${paramsDir}/${task_id}.cliParams" ]; then
-	PARAMS=$(head -1 ${workingDirectory}/${paramsDir}/${task_id}.cliParams | tr -d '\n' | tr -d '\r')
+	CLI_PARAMS=$(head -1 ${workingDirectory}/${paramsDir}/${task_id}.cliParams | tr -d '\n' | tr -d '\r')
+fi
+
+if [ -f "${workingDirectory}/${paramsDir}/${task_id}.sedaParams" ]; then
+	PARAMS="${CLI_PARAMS} --parameters-file ${workingDirectory}/${paramsDir}/${task_id}.sedaParams"
 else
-	if [ -f "${workingDirectory}/${paramsDir}/${task_id}.sedaParams" ]; then
-		PARAMS="--parameters-file ${workingDirectory}/${paramsDir}/${task_id}.sedaParams"
-	else
-		PARAMS=""
-	fi
+	PARAMS="${CLI_PARAMS}"
 fi
 
 OUTPUT=${workingDirectory}/${output}/${task_id}

@@ -4,12 +4,24 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "compi-dk build -drd -tv"
+            "command": "compi-dk build -drd -tv",
+            "problemMatcher": []
         },
         {
             "label": "run-docker",
             "type": "shell",
-            "command": "$(pwd)/run.sh $(pwd)"
+            "command": "$(pwd)/run.sh $(pwd)",
+            "problemMatcher": []
+        },
+        {
+            "label": "build-and-run-docker",
+            "type": "shell",
+            "dependsOn": [
+                "build",
+                 "run-docker"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": []
         },
         {
             "label": "show SEDA help",
