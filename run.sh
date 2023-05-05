@@ -16,6 +16,7 @@ fi
 
 docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /tmp:/tmp \
     -v "${WORKING_DIR}:${WORKING_DIR}" \
+    -w "${WORKING_DIR}" \
     test/seda-cli-pipeline \
-        /compi run -p pipeline.xml -o -r pipeline-runner.xml ${COMPI_PARAMS} -- \
+        /compi run -p /pipeline.xml -o -r /pipeline-runner.xml ${COMPI_PARAMS} -- \
             --workingDirectory ${WORKING_DIR}
