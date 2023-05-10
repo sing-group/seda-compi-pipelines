@@ -10,7 +10,7 @@
         {
             "label": "run-docker",
             "type": "shell",
-            "command": "$(pwd)/run.sh $(pwd)",
+            "command": "$(pwd)/run.sh $(pwd)/sample-working-dir",
             "problemMatcher": []
         },
         {
@@ -18,7 +18,7 @@
             "type": "shell",
             "dependsOn": [
                 "build",
-                 "run-docker"
+                "run-docker"
             ],
             "dependsOrder": "sequence",
             "problemMatcher": []
