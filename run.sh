@@ -14,9 +14,14 @@ if [ $# -ne 1 ] && [ $# -ne 2 ]; then
 	exit 1
 fi
 
+PIPELINE_PARAMS_FILE=""
+if [ -f "${WORKING_DIR}/compi.params" ]; then
+    PIPELINE_PARAMS_FILE="--params ${WORKING_DIR}/compi.params"
+fi
+
 docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /tmp:/tmp \
     -v "${WORKING_DIR}:${WORKING_DIR}" \
     -w "${WORKING_DIR}" \
     test/seda-cli-pipeline \
-        /compi run -p /pipeline.xml -o -r /pipeline-runner.xml ${COMPI_PARAMS} -- \
+        /compi run -p /pipeline.xml -o -r /pipeline-runner.xml ${COMPI_PARAMS} ${PIPELINE_PARAMS_FILE} -- \
             --workingDirectory ${WORKING_DIR}
