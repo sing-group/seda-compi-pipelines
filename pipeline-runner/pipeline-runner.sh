@@ -7,16 +7,25 @@ function message() {
 SEDA_OPERATION_NAME=$(echo ${task_id} | sed 's/_[0-9]*$//')
 
 #
-# Set the input files for the current task.
+# Use the task input file list in case it exists.
+# Paths listed there should be absolute and live within the working directory.
 #
-INPUT_LIST=$(mktemp /tmp/seda.${task_id}.XXXXX)
-TASK_AFTER=$(env | grep "^task_after" | sed 's/^task_after*=//')
-if [ -z "${TASK_AFTER}" ]; then
-	ls ${workingDirectory}/${input}/${task_id}/* > ${INPUT_LIST}
+INPUT_LIST="${workingDirectory}/${input}/lists/${task_id}.txt"
+if [ -f "${INPUT_LIST}" ]; then
+	message "Using existing input list: ${INPUT_LIST}"
 else
-	for TASK in ${TASK_AFTER}; do 
-		ls ${workingDirectory}/${output}/${TASK}/* > ${INPUT_LIST}
-	done
+	#
+	# Otherwise, set the input files for the current task.
+	#
+	INPUT_LIST=$(mktemp /tmp/seda.${task_id}.XXXXX)
+	TASK_AFTER=$(env | grep "^task_after" | sed 's/^task_after*=//')
+	if [ -z "${TASK_AFTER}" ]; then
+		ls ${workingDirectory}/${input}/${task_id}/* > ${INPUT_LIST}
+	else
+		for TASK in ${TASK_AFTER}; do 
+			ls ${workingDirectory}/${output}/${TASK}/* > ${INPUT_LIST}
+		done
+	fi
 fi
 
 #
