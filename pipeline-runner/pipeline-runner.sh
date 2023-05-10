@@ -66,6 +66,11 @@ mkdir -p ${OUTPUT}
 for BATCH_FILE in $(ls ${INPUT_BATCHES_DIR}/*); do
 	message "Running ${sedaCli} ${SEDA_OPERATION_NAME} -il ${BATCH_FILE} -od ${OUTPUT} ${PARAMS}"
 	${sedaCli} ${SEDA_OPERATION_NAME} -il ${BATCH_FILE} -od ${OUTPUT} ${PARAMS}
+	if [ $? -gt 0 ]; then
+		message "Error runing batch, saving it into ${workingDirectory}/${output}/_failed/${task_id}"
+		mkdir -p ${workingDirectory}/${output}/_failed/${task_id}
+		cp ${BATCH_FILE} ${workingDirectory}/${output}/_failed/${task_id}/
+	fi
 done
 
 #
