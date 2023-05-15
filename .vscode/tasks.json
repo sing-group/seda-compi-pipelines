@@ -11,7 +11,12 @@
             "label": "run-docker",
             "type": "shell",
             "command": "$(pwd)/run.sh $(pwd)/sample-working-dir",
-            "problemMatcher": []
+            "problemMatcher": [],
+            "options": {
+                "env": {
+                    "SEDA_JAVA_MEMORY": "-Xmx6G"
+                }
+            }
         },
         {
             "label": "build-and-run-docker",
