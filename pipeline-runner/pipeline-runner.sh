@@ -80,4 +80,4 @@ input_count=$(cat ${INPUT_BATCHES_DIR}/* | wc -l)
 output_count=$(ls ${OUTPUT} | wc -l)
 
 mkdir -p ${workingDirectory}/${output}/_stats
-echo "${task_id},${input_count},${output_count}" > ${workingDirectory}/${output}/_stats/${task_id}.csv
+echo "${task_id},${input_count},${output_count}" >> ${workingDirectory}/${output}/_stats/${task_id}.csv
