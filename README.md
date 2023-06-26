@@ -71,7 +71,9 @@ The minimal pipeline task looks like the following:
 <task id="filtering"/>
 ```
 
-Which means that the `filtering` command should be executed. As this task has not dependencies (i.e. previous tasks that must be executed before), its input files are taken from `input/filtering`. This means that all files in that directory will be processed by the command. The corresponding output files will be placed at `output/filtering` (as you should be expecting).
+Which means that the SEDA `filtering` command should be executed. Therefore, task identifiers are the names of the SEDA commands.
+
+As this task has not dependencies (i.e. previous tasks that must be executed before), its input files are taken from `input/filtering`. This means that all files in that directory will be processed by the command. The corresponding output files will be placed at `output/filtering` (as you should be expecting).
 
 What if the same command must be executed more than once? In this case, each command must be suffixed with `_<number>`. 
 
@@ -90,7 +92,7 @@ Lets add a task that comes after `filtering_1` and `filtering_2`. This task shou
 <task id="reformat" after="filtering_1 filtering_2"/>
 ```
 
-This tasks takes as input all files from the output files of its predecessor tasks, so it will process al files in `output/filtering_1` and `output/filtering_2` and create its output files in `output/reformat`.
+This tasks takes as input all files from the output files of its predecessor tasks, so it will process all files in `output/filtering_1` and `output/filtering_2` and create its output files in `output/reformat`.
 
 <p align="center">
 	<img src="./docs/figure_2.png" alt="seda-cheatsheet" title="SEDA-Compi Pipelines, Figure 2" width="90%;" />
@@ -181,7 +183,7 @@ The `pipeline-runner.sh` also generates useful logs:
 - It creates a directory named `_stats` in the output directory containing one CSV file for each pipeline task (`<task_id>.csv`). This CSV contains the number of input and output files produced by the task. This is useful for quickly checking that commands produce the right number of output files (e.g. n to n in `rename`, n to 1 in `merge`, etc.).
 - In case any batch fails running the corresponding SEDA command, a new directory named `/failed/<task_id>` in the output directory will be created. This directory will contain the file lists corresponding to the failed batches.
 
-If one or more batches of the same task fail, one should take a look and, in some cases, re-run only such task for the failed files. To do so, all file lists can be merged into a single file at `input/lists/<seda_command>.txt` and run the pipeline with the `run.sh "--single-task seda_command"`. This way, the `pipeline-runner` will only run the specified `seda_command` using the files in the given list. After a successful re-run, just delete the file list at `input/lists/<seda_command>.txt`.
+If one or more batches of the same task fail, one should take a look at the execution logs and, in some cases, re-run only such task for the failed files. To do so, all file lists can be merged into a single file at `input/lists/<seda_command>.txt` and run the pipeline with the `run.sh "--single-task seda_command"`. This way, the `pipeline-runner` will only run the specified `seda_command` using the files in the given list. After a successful re-run, just delete the file list at `input/lists/<seda_command>.txt`.
 
 # Contributors
 
