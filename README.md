@@ -1,4 +1,4 @@
-# SEDA pipelines with Compi
+# SEDA pipelines with Compi [![license](https://img.shields.io/github/license/sing-group/seda-compi-pipelines?style=flat-square)](https://github.com/sing-group/seda-compi-pipelines)
 
 This project provides a framework for easily creating pipelines made up of [SEDA](https://www.sing-group.org/seda/) commands using [Compi](https://www.sing-group.org/compi/).
 
@@ -12,7 +12,7 @@ This is what this framework provides: a generic execution engine for Compi-based
 </p>
 
 # Table of Contents
-- [SEDA pipelines with Compi](#seda-pipelines-with-compi)
+- [SEDA pipelines with Compi ](#seda-pipelines-with-compi-)
 - [Table of Contents](#table-of-contents)
 - [Requirements](#requirements)
 - [Getting started](#getting-started)
@@ -25,6 +25,7 @@ This is what this framework provides: a generic execution engine for Compi-based
 	- [Running commands in batches](#running-commands-in-batches)
 	- [An alternative way of specifying the input files](#an-alternative-way-of-specifying-the-input-files)
 	- [Logging](#logging)
+- [SEDA-Compi Pipelines](#seda-compi-pipelines)
 - [Contributors](#contributors)
 
 # Requirements
@@ -185,10 +186,14 @@ The `pipeline-runner.sh` also generates useful logs:
 
 If one or more batches of the same task fail, one should take a look at the execution logs and, in some cases, re-run only such task for the failed files. To do so, all file lists can be merged into a single file at `input/lists/<seda_command>.txt` and run the pipeline with the `run.sh "--single-task seda_command"`. This way, the `pipeline-runner` will only run the specified `seda_command` using the files in the given list. After a successful re-run, just delete the file list at `input/lists/<seda_command>.txt`.
 
+# SEDA-Compi Pipelines
+
+- [Preparing datasets for large scale phylogenetic analyses](https://www.sing-group.org/seda/manual/protocols.html#preparing-datasets-for-large-scale-phylogenetic-analyses) [![dockerhub](https://img.shields.io/badge/Docker%20Hub-7289da.svg?style=flat-square)](https://hub.docker.com/r/pegi3s/seda-pipeline-phylogenetics-datasets)  [![github](https://img.shields.io/badge/GitHub-7289da.svg?style=flat-square)](https://github.com/pegi3s/seda-pipeline-phylogenetics-datasets)
+
 # Contributors
 
-<a href="https://github.com/sing-group/my-brain-seq/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=sing-group/my-brain-seq" />
+<a href="https://github.com/sing-group/seda-compi-pipelines/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=sing-group/seda-compi-pipelines"/>
 </a>
 
 <sup>Made with [contrib.rocks](https://contrib.rocks).</sup>
