@@ -20,7 +20,12 @@ else
 	INPUT_LIST=$(mktemp /tmp/seda.${task_id}.XXXXX)
 	TASK_AFTER=$(env | grep "^task_after" | sed 's/^task_after*=//')
 	if [ -z "${TASK_AFTER}" ]; then
-		ls ${workingDirectory}/${input}/${task_id}/* > ${INPUT_LIST}
+		if [ -d ${workingDirectory}/${input}/${task_id} ]; then
+			ls ${workingDirectory}/${input}/${task_id}/* > ${INPUT_LIST}
+		else
+			message "Error, the expected input folder does not exist: ${workingDirectory}/${input}/${task_id}"
+			exit 1
+		fi
 	else
 		for TASK in ${TASK_AFTER}; do 
 			ls ${workingDirectory}/${output}/${TASK}/* > ${INPUT_LIST}
