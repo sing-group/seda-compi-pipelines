@@ -188,7 +188,9 @@ If one or more batches of the same task fail, one should take a look at the exec
 
 # SEDA-Compi Pipelines
 
-- [Preparing datasets for large scale phylogenetic analyses](https://www.sing-group.org/seda/manual/protocols.html#preparing-datasets-for-large-scale-phylogenetic-analyses) [![dockerhub](https://img.shields.io/badge/Docker%20Hub-7289da.svg?style=flat-square)](https://hub.docker.com/r/pegi3s/seda-pipeline-phylogenetics-datasets)  [![github](https://img.shields.io/badge/GitHub-7289da.svg?style=flat-square)](https://github.com/pegi3s/seda-pipeline-phylogenetics-datasets)
+- [Preparing datasets for large scale phylogenetic analyses](https://www.sing-group.org/seda/manual/protocols.html#preparing-datasets-for-large-scale-phylogenetic-analyses) [![dockerhub](https://img.shields.io/badge/Docker%20Hub-7289da.svg?style=flat-square)](https://hub.docker.com/r/pegi3s/seda-pipeline-phylogenetics-datasets) [![github](https://img.shields.io/badge/GitHub-7289da.svg?style=flat-square)](https://github.com/pegi3s/seda-pipeline-phylogenetics-datasets)
+- [Protocol for a phylogenomics study](https://www.sing-group.org/seda/manual/protocols.html#protocol-for-a-phylogenomics-study) [![dockerhub](https://img.shields.io/badge/Docker%20Hub-7289da.svg?style=flat-square)](https://hub.docker.com/r/pegi3s/seda-pipeline-phylogenomics-study) [![github](https://img.shields.io/badge/GitHub-7289da.svg?style=flat-square)](https://github.com/pegi3s/seda-pipeline-phylogenomics-study)
+- [Obtaining protein family members](https://www.sing-group.org/seda/manual/protocols.html#obtaining-protein-family-members) [![dockerhub](https://img.shields.io/badge/Docker%20Hub-7289da.svg?style=flat-square)](https://hub.docker.com/r/pegi3s/seda-pipeline-protein-family-members) [![github](https://img.shields.io/badge/GitHub-7289da.svg?style=flat-square)](https://github.com/pegi3s/seda-pipeline-protein-family-members)
 
 # Contributors
 
