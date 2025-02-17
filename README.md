@@ -2,7 +2,7 @@
 
 This project provides a framework for easily creating pipelines made up of [SEDA](https://www.sing-group.org/seda/) commands using [Compi](https://www.sing-group.org/compi/).
 
-Compi pipelines are defined in an XML file that contains the pipeline parameters, task definitions and task dependencies. In a pipeline made up of SEDA commands all tasks would be essentially the same: running the specific SEDA command with a set of parameters over a set of input files; then, the input of each command would be the output of of its predecessor commands. As the SEDA CLI can read command parameters, this execution can be generalized so that pipeline developers should only declare the pipeline tasks (i.e. the SEDA CLI commands) and their execution order. 
+Compi pipelines are defined in an XML file that contains the pipeline parameters, task definitions and task dependencies. In a pipeline made up of SEDA commands all tasks would be essentially the same: running the specific SEDA command with a set of parameters over a set of input files; then, the input of each command would be the output of its predecessor commands. As the SEDA CLI can read command parameters, this execution can be generalized so that pipeline developers should only declare the pipeline tasks (i.e. the SEDA CLI commands) and their execution order. 
 
 This is what this framework provides: a generic execution engine for Compi-based pipelines that only requires developers to follow some conventions regarding input, output and parameter files. The image below illustrates these conventions, which are further explained before. 
 
@@ -54,13 +54,15 @@ To create your own SEDA pipeline, clone the project and then:
 
 1. Edit the `compi.project` file to set the name of your Docker image. Edit the `run.sh` file accordingly to use this Docker image.
 
-2. Edit the `pipeline.xml` file to add one task for each SEDA command to be executed.
+2. Edit the `pipeline.xml` file to add one task for each SEDA command to be executed. Also:
 
-    2.1 Also edit the `pipeline-runner.xml` to specify the non-SEDA tasks if needed.
+    - Edit the `pipeline-runner.xml` to specify the non-SEDA tasks if needed.
+
+	- Edit the `Dockerfile` to update the base SEDA version to be used (`FROM pegi3s/seda:1.7.2`).
 
 3. Build the image with `compi-dk build -drd -tv` (or run the *build* task within Visual Studio Code).
 
-Note that the list of SEDA commands can be obtained with `docker run --rm pegi3s/seda:1.6.0-SNAPSHOT /opt/SEDA/run-cli.sh help` (or with the *show SEDA help* task).
+Note that the list of SEDA commands can be obtained with `docker run --rm pegi3s/seda:1.7.2 /opt/SEDA/run-cli.sh help` (or with the *show SEDA help* task).
 
 # Understanding Compi-based SEDA pipelines
 
@@ -102,7 +104,7 @@ This tasks takes as input all files from the output files of its predecessor tas
 
 To sum up what we have seen, as illustrated by the image above:
 
-1. Task ids are just the name of the SEDA commands to be executed. The list of SEDA commands can be obtained with `docker run --rm pegi3s/seda:1.6.0-SNAPSHOT /opt/SEDA/run-cli.sh help`.
+1. Task ids are just the name of the SEDA commands to be executed. The list of SEDA commands can be obtained with `docker run --rm pegi3s/seda:1.7.2 /opt/SEDA/run-cli.sh help`.
 2. If the same SEDA command is executed more than once, then tasks are disambiguated by adding the `<seda_command>_<number>` suffix.
 3. Input files:
    1. For tasks without dependencies: all files in `input/<seda_command>`.
@@ -139,9 +141,9 @@ If your pipeline needs to execute tasks for non-SEDA commands, you must:
 <task id="final-task" after="reverse-complement" src="task-scripts/final-task.sh"></task>
 ```
 
-2. Edit the `pipeline.xml` file to specify which tasks must be executed as shell scripts.
+2. Edit the `pipeline-runner.xml` file to specify which tasks must be executed as shell scripts.
 
-The image below illustrates this situation, where task `Z` comes after task `Y` and its source code is provided by the `script` specified in the `src` property. In this cases, pipeline developers are responsible of creating the output files in the appropriate output directory, so that following tasks can work properly in case of being SEDA commands.
+The image below illustrates this situation, where task `Z` comes after task `Y` and its source code is provided by the `script` specified in the `src` property. In these cases, pipeline developers are responsible of creating the output files in the appropriate output directory, so that following tasks can work properly in case of being SEDA commands.
 
 <p align="center">
 	<img src="./docs/figure_1.png" alt="seda-cheatsheet" title="SEDA-Compi Pipelines, Figure 1" width="70%;" />
@@ -170,7 +172,7 @@ So far, tasks could take as input files all output files from its predecessor ta
 
 In the example pipeline, files for task `filtering_1` are listed in `input/lists/filtering_1.txt`.
 
-This feature, illustrated in the image below, is useful when used in conjunction with the feature show in the next section.
+This feature, illustrated in the image below, is useful when used in conjunction with the feature shown in the next section.
 
 <p align="center">
 	<img src="./docs/figure_4.png" alt="seda-cheatsheet" title="SEDA-Compi Pipelines, Figure 4" width="90%;" />
@@ -182,9 +184,9 @@ This feature, illustrated in the image below, is useful when used in conjunction
 The `pipeline-runner.sh` also generates useful logs:
 
 - It creates a directory named `_stats` in the output directory containing one CSV file for each pipeline task (`<task_id>.csv`). This CSV contains the number of input and output files produced by the task. This is useful for quickly checking that commands produce the right number of output files (e.g. n to n in `rename`, n to 1 in `merge`, etc.).
-- In case any batch fails running the corresponding SEDA command, a new directory named `/failed/<task_id>` in the output directory will be created. This directory will contain the file lists corresponding to the failed batches.
+- In case any batch fails running the corresponding SEDA command, a new directory named `failed/<task_id>` in the output directory will be created. This directory will contain the file lists corresponding to the failed batches.
 
-If one or more batches of the same task fail, one should take a look at the execution logs and, in some cases, re-run only such task for the failed files. To do so, all file lists can be merged into a single file at `input/lists/<seda_command>.txt` and run the pipeline with the `run.sh "--single-task seda_command"`. This way, the `pipeline-runner` will only run the specified `seda_command` using the files in the given list. After a successful re-run, just delete the file list at `input/lists/<seda_command>.txt`.
+If one or more batches of the same task fail, one should take a look at the execution logs and, in some cases, re-run only such task for the failed files. To do so, all file lists can be merged into a single file at `input/lists/<seda_command>.txt` and run the pipeline with the `run.sh "--single-task seda_command"`. This way, the `pipeline-runner.sh` will only run the specified `seda_command` using the files in the given list. After a successful re-run, just delete the file list at `input/lists/<seda_command>.txt`.
 
 # SEDA-Compi Pipelines
 

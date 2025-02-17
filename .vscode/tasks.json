@@ -31,7 +31,7 @@
         {
             "label": "show SEDA help",
             "type": "shell",
-            "command": "docker run --rm pegi3s/seda:1.6.0-SNAPSHOT /opt/SEDA/run-cli.sh help"
+            "command": "docker run --rm pegi3s/seda:1.7.2-SNAPSHOT /opt/SEDA/run-cli.sh help"
         }
     ]
 }
